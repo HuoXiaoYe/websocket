@@ -10,18 +10,22 @@
 <body>
 
     <div id="app">
-        ccc
+        <h1>socket</h1>
+        <p>{{time}}</p>
     </div>
 
     <script>
         const host = 'http://localhost:3000'
         var app = new Vue({
             el: '#app',
+            data: {
+                time: [],
+            },
             mounted() {
                 const socket = io(host)
-                console.log("123")
-                socket.on('chat', data => {
-                    console.log(data.toString())
+                socket.on('message', data => {
+                    this.time.push(data)
+                    localStorage.setItem(Symbol(), data.toString())
                 });
             }
 
